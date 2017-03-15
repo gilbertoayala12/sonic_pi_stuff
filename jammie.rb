@@ -2,7 +2,6 @@ notes = (scale :g1, :minor)
 use_bpm 50
 r = [0.125,0.25].choose
 live_loop :amen do
-  sync :main
   
   with_fx :slicer, phase: r, wave:0 ,mix:1 do
     sample :loop_amen, beat_stretch: 2, cutoff:120
@@ -12,8 +11,8 @@ live_loop :amen do
   
 end
 live_loop :bass do
-  stop
-  sync :main
+  
+  sync :amen
   use_synth :square
   
   with_fx :slicer,   wave:3, invert_wave:1,  phase: 0.125, amp: 2 do
@@ -22,12 +21,8 @@ live_loop :bass do
   sleep 2
   
 end
-live_loop :main do
-  sleep 2
-end
-
 live_loop :notes do
-  sync :main
+  sync :amen
   use_synth :dark_ambience
   with_fx :wobble, wave: 1, invert_wave:1, probability: 0.125 do
     play :b2, release: 2, amp: 4
@@ -36,19 +31,6 @@ live_loop :notes do
   
   sleep 2
 end
-
-live_loop :lili do
-  use_synth  :sine
-  with_fx :compressor, phase:rrand(0.100,0.500)  do
-    sync :main
-    play :b2, release: 2
-    play :a3, release: 2
-    sleep 2
-    play :e3, release: 2
-    sleep 2
-  end
-end
-
 
 live_loop :lead do
   stop
